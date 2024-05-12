@@ -2,12 +2,14 @@
   class="app-primary-bg d-flex justify-content-center align-items-center"
 >
   <div class="container-fluid h-custom">
-    <div class="row d-flex justify-content-center align-items-center h-100">
+    <div
+      class="row d-flex flex-row-reverse justify-content-center align-items-center h-100"
+    >
+    <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+        <img src="assets/images/bg-2.png" class="img-fluid" alt="Sample image" />
+    </div>
       <div class="col-md-9 col-lg-6 col-xl-5">
-        <img src="assets/images/bg.webp" class="img-fluid" alt="Sample image" />
-      </div>
-      <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-        <form [formGroup]="checkoutForm" (ngSubmit)="signIn()">
+        <form [formGroup]="checkoutForm" (ngSubmit)="signUp()">
           <!-- Email input -->
           <div class="form-outline mb-4">
             <label class="form-label" for="email"><b>Email address</b></label>
@@ -61,19 +63,6 @@
             {{ error }}
           </div>
 
-          <!-- Checkbox -->
-          <div class="form-check mb-0">
-            <input
-              class="form-check-input me-2"
-              type="checkbox"
-              value=""
-              id="form2Example3"
-            />
-            <label class="form-check-label" for="form2Example3">
-              Remember me
-            </label>
-          </div>
-
           <div class="d-flex justify-content-end mt-4 pt-2">
             <button
               type="submit"
@@ -87,11 +76,11 @@
                 role="status"
               ></span>
               <ng-template #text>
-                <p class="m-0">Login</p>
+                <p class="m-0">Register</p>
               </ng-template>
             </button>
-          </div>
-          <p class="mt-2">Don't have an account yet ? <span class="text-danger" style="cursor: pointer;" routerLink="/page/sign-up">Register</span></p>
+        </div>
+        <p class="mt-2">Already have an account ? <span class="text-danger" style="cursor: pointer;" routerLink="/page/sign-in">Log in</span></p>
         </form>
       </div>
     </div>

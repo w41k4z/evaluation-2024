@@ -1,0 +1,13 @@
+<section *ngIf="totalPages > 1">
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <li class="page-item page-link" (click)="onPrevious()">
+                Previous
+            </li>
+            <li class="page-item active page-link">{{currentPage}}</li>
+            <li class="page-item page-link" (click)="onNext()">
+                Next
+            </li>
+        </ul>
+    </nav>
+</section>

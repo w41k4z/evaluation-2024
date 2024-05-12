@@ -17,6 +17,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import proj.eval.app.enumeration.Roles;
 import proj.eval.app.filter.JwtAuthFilter;
 
 @Configuration
@@ -64,13 +65,11 @@ public class WebSecurityConfig {
       .authorizeHttpRequests(authorize ->
         authorize
           // Public routes
-          .requestMatchers("/error", "/auth/**")
+          .requestMatchers("/public/**", "/error", "/auth/**")
           .permitAll()
           // Private routes
-          .requestMatchers("/api/admin/**")
-          .hasAuthority("ADMIN")
-          .requestMatchers("/api/user/**")
-          .hasAuthority("USER")
+          .requestMatchers("/api/admin/**", "/admin/**")
+          .hasAuthority(Roles.BTP.toString())
           // Authenticated routes
           .anyRequest()
           .authenticated()

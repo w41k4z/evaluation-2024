@@ -28,7 +28,8 @@ public class UserDetailsImpl implements UserDetails {
     this.id = user.getId();
     this.username = user.getUsername();
     this.password = user.getPassword();
-    this.authority = new SimpleGrantedAuthority(user.getGroup().getGroupName());
+    this.authority =
+      new SimpleGrantedAuthority(user.getGroup().getGroupName().toString());
   }
 
   @Override

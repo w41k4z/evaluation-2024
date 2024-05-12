@@ -1,0 +1,13 @@
+section {
+    margin-top: 15px;
+    padding: 10px 0 10px 0;
+}
+
+.pagination {
+    display: flex;
+    align-items: center;
+}
+
+.pagination li {
+    cursor: pointer;
+}

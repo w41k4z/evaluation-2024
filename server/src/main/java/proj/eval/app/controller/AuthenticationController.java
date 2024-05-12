@@ -1,6 +1,7 @@
 package proj.eval.app.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import jakarta.validation.Valid;
 import java.util.HashMap;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import proj.eval.app.entity.auth.Groups;
 import proj.eval.app.entity.auth.Users;
+import proj.eval.app.enumeration.Roles;
 import proj.eval.app.request.AuthRequest;
 import proj.eval.app.request.SignUpRequest;
 import proj.eval.app.security.UserDetailsImpl;
@@ -37,7 +40,7 @@ public class AuthenticationController {
   }
 
   @PostMapping("/sign-in")
-  private ResponseEntity<?> signIn(@RequestBody AuthRequest authRequest)
+  private ResponseEntity<?> signIn(@RequestBody @Valid AuthRequest authRequest)
     throws JsonProcessingException {
     Authentication authentication = authenticationManager.authenticate(
       new UsernamePasswordAuthenticationToken(
@@ -53,19 +56,19 @@ public class AuthenticationController {
     return new ResponseEntity<>(response, HttpStatus.OK);
   }
 
-  @PostMapping("/sign-out")
-  private ResponseEntity<?> signOut() {
-    return new ResponseEntity<>("Signed out", HttpStatus.OK);
-  }
-
   @PostMapping("/sign-up")
-  private ResponseEntity<?> signUp(@RequestBody SignUpRequest signUpRequest)
-    throws Exception {
+  private ResponseEntity<?> signUp(
+    @RequestBody @Valid SignUpRequest signUpRequest
+  ) throws Exception {
     Users user = new Users();
     user.setUsername(signUpRequest.getUsername());
     user.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
-    user.setGroup(signUpRequest.getGroup());
+    user.setGroup(new Groups().findByGroupName(null, Roles.CLIENT));
     user.create();
-    return new ResponseEntity<>(user, HttpStatus.OK);
+
+    AuthRequest authRequest = new AuthRequest();
+    authRequest.setUsername(user.getUsername());
+    authRequest.setPassword(signUpRequest.getPassword());
+    return this.signIn(authRequest);
   }
 }

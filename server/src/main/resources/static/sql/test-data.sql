@@ -1,6 +1,6 @@
 INSERT INTO groups VALUES
-(default, 'USER'),
-(default, 'ADMIN');
+(1, 'BTP'),
+(2, 'CLIENT');
 
 INSERT INTO users VALUES
-(default, 'admin@gmail.com', '$2a$10$e1ox32O1ARezRy6lXlMQJOZHqKQ77g/lX7mT940HKNO6DUMkdGqGC', 2);
+(1, 'admin@gmail.com', '$2a$10$e1ox32O1ARezRy6lXlMQJOZHqKQ77g/lX7mT940HKNO6DUMkdGqGC', 1);
