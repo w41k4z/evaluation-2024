@@ -1,0 +1,40 @@
+aside {
+    width: 250px;
+    height: 100vh;
+    min-height: 100%;
+}
+
+aside li {
+    color: #F0F8FF;
+    cursor: pointer;
+}
+
+aside li i {
+    font-size: x-large;
+}
+
+aside a {
+    color: #F0F8FF;
+    text-decoration: none;
+    padding: 15px 10px;
+}
+
+aside li:hover, aside .active {
+    background-color: #2a303d;
+}
+
+aside .active {
+    background-color: #2a303d;
+    font-weight: bold;
+}
+
+header {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+header img {
+    height: auto;
+    width: 80%;
+}

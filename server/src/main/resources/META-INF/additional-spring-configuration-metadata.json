@@ -1,0 +1,17 @@
+{"properties": [
+  {
+    "name": "jwt.private.key",
+    "type": "java.lang.String",
+    "description": "Private key for JWT token generation"
+  },
+  {
+    "name": "jwt.expiration.time",
+    "type": "java.lang.Long",
+    "description": "JWT expiration time in seconds"
+  },
+  {
+    "name": "cors.allowed.origin.pattern",
+    "type": "java.lang.String",
+    "description": "Allowed pattern for cors"
+  }
+]}
