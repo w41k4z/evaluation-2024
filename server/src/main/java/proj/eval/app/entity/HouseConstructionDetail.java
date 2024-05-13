@@ -25,7 +25,4 @@ public class HouseConstructionDetail
 
   @Column(name = "default_quantity")
   private Double defaultQuantity;
-
-  @Column(name = "unit_price")
-  private Double unitPrice;
 }

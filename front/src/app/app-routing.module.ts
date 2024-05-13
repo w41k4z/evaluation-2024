@@ -14,6 +14,8 @@ import { AdminLayoutComponent } from './layout/app-layout/admin-layout/admin-lay
 import { ClientLayoutComponent } from './layout/app-layout/client-layout/client-layout.component';
 import { clientGuard } from './guards/client.guard';
 import { NewQuoteComponent } from './views/client/new-quote/new-quote.component';
+import { QuoteListComponent } from './views/client/quote-list/quote-list.component';
+import { QuoteComponent } from './views/client/quote-list/quote/quote.component';
 
 const routes: Routes = [
   {
@@ -48,6 +50,14 @@ const routes: Routes = [
           {
             path: 'quote',
             component: NewQuoteComponent,
+          },
+          {
+            path: 'quote-list',
+            component: QuoteListComponent,
+          },
+          {
+            path: 'quote/:quoteId',
+            component: QuoteComponent,
           },
         ],
       },

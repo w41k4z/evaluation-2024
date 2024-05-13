@@ -4,11 +4,13 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import lombok.Getter;
 import lombok.Setter;
 import proj.w41k4z.orm.annotation.Column;
 import proj.w41k4z.orm.annotation.Entity;
 import proj.w41k4z.orm.annotation.Id;
+import proj.w41k4z.orm.annotation.relationship.OneToOne;
 import proj.w41k4z.orm.database.Repository;
 import proj.w41k4z.orm.database.connectivity.DatabaseConnection;
 
@@ -21,7 +23,7 @@ public class Quote extends Repository<Quote, Long> {
   @Column
   private Long id;
 
-  @Column(name = "\"date\"")
+  @Column(name = "action_date")
   private Date date;
 
   @Column(name = "users_id")
@@ -30,8 +32,16 @@ public class Quote extends Repository<Quote, Long> {
   @Column(name = "house_types_id")
   private Long houseTypesId;
 
+  @OneToOne
+  @Column(name = "house_types_id")
+  private HouseType houseType;
+
   @Column(name = "finition_types_id")
   private Long finitionTypesId;
+
+  @OneToOne
+  @Column(name = "finition_types_id")
+  private FinitionType finitionType;
 
   @Column(name = "finition_type_majoration")
   private Double finitionTypeMajoration;
@@ -49,12 +59,15 @@ public class Quote extends Repository<Quote, Long> {
     DatabaseConnection connection,
     HouseType houseType,
     FinitionType finitionType,
+    LocalDate constructionStartDate,
     Long userId
   )
     throws NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, InstantiationException, SecurityException, IOException, SQLException {
-    this.setConstructionStartDate(null);
-    //TODO: calculate
-    this.setConstructionEndDate(null);
+    this.setDate(Date.valueOf(LocalDate.now()));
+    this.setConstructionStartDate(Date.valueOf(constructionStartDate));
+    this.setConstructionEndDate(
+        Date.valueOf(constructionStartDate.plusDays(houseType.getDuration()))
+      );
     this.setUserId(userId);
     this.setHouseTypesId(houseType.getId());
     this.setFinitionTypesId(finitionType.getId());

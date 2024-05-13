@@ -1,0 +1,43 @@
+<h2 class="app-primary-color mb-4">Liste des devis</h2>
+<div>
+    <ng-template *ngIf="loading$ | async; else content" class="my-5 d-flex justify-content-center">
+        <div class="spinner-border text-primary" role="status"></div>
+    </ng-template>
+    
+    <ng-template #content>
+        <div *ngIf="error$ | async as error; else main">
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+        </div>
+        <ng-template #main>
+            <table class="table table-hover mt-3" id="main-content">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Date</th>
+                        <th>Type de maison</th>
+                        <th>Type de finition</th>
+                        <th>(Majoration)</th>
+                        <th>Construction</th>
+                        <th>Fin</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let quote of quotes; index as i">
+                        <td [routerLink]="['/app/client/quote', quote.id]"><i class="bi bi-eye"></i></td>
+                        <td>{{ quote.date }}</td>
+                        <td>{{ quote.houseType?.name }}</td>
+                        <td>{{ quote.finitionType?.name }}</td>
+                        <td>{{ quote.finitionTypeMajoration }}</td>
+                        <td>{{ quote.constructionStartDate }}</td>
+                        <td>{{ quote.constructionEndDate }}</td>
+                        <td>{{ quote.totalPrice }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </ng-template>
+    </ng-template>
+    
+</div>

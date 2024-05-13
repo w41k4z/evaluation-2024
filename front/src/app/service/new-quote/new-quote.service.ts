@@ -36,7 +36,7 @@ export class NewQuoteService {
     if (finitionType && houseType) {
       this.loadingSubject.next(true);
       return this.http
-        .post(`${env.api}/api/quotes/house-types`, {
+        .post(`${env.api}/api/quotes`, {
           finitionType: finitionType,
           houseType: houseType,
           constructionStartDate: constructionStartDate,

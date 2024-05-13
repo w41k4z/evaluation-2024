@@ -1,0 +1,57 @@
+<header class="mb-4">
+    <button class="btn btn-outline-secondary" (click)="exportAsPDF('main-content')"><i class="bi bi-file-pdf me-2"></i>Exporter en
+        pdf</button>
+</header>
+<ng-template *ngIf="loading$ | async; else content" class="my-5 d-flex justify-content-center">
+    <div class="spinner-border text-primary" role="status"></div>
+</ng-template>
+<ng-template #content>
+    <div *ngIf="error$ | async as error; else main">
+        <div class="alert alert-danger" role="alert">
+            {{ error }}
+        </div>
+    </div>
+    <ng-template #main>
+        <table class="table table-bordered" id="main-content">
+            <thead>
+                <tr>
+                    <th>N°</th>
+                    <th>Designations</th>
+                    <th>U</th>
+                    <th>Q</th>
+                    <th>PU</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let group of groupByWorkName() | keyvalue">
+                    <tr>
+                        <td></td>
+                        <td><b>{{ group.key }}</b></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr *ngFor="let each of group.value">
+                        <td></td>
+                        <td>{{each.workDetailDesignation}}</td>
+                        <td>{{each.unit}}</td>
+                        <td>{{each.quantity}}</td>
+                        <td>{{each.unitPrice}}</td>
+                        <td>{{each.unitPrice && each.quantity ? each.unitPrice * each.quantity : 0}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Total {{group.key}}:</td>
+                        <td><b>{{getSum(group.value)}}</b></td>
+                    </tr>
+                </ng-container>
+                
+            </tbody>
+        </table>
+    </ng-template>
+</ng-template>

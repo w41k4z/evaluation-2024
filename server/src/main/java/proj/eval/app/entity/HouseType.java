@@ -22,7 +22,7 @@ public class HouseType extends Repository<HouseType, Long> {
   private String name;
 
   @Column
-  private Double duration;
+  private Long duration; // in days
 
   @Column(name = "total_price")
   private Double totalPrice;
@@ -30,8 +30,4 @@ public class HouseType extends Repository<HouseType, Long> {
   @OneToMany
   @Join(inverseJoinColumn = "house_types_id")
   private HouseTypeDetail[] houseTypeDetails;
-
-  @OneToMany
-  @Join(inverseJoinColumn = "house_types_id")
-  private HouseConstructionDetail[] houseConstructionDetails;
 }

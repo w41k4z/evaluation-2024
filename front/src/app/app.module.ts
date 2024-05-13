@@ -26,6 +26,8 @@ import { HomeComponent } from './views/client/home/home.component';
 import { AdminLayoutComponent } from './layout/app-layout/admin-layout/admin-layout.component';
 import { ClientLayoutComponent } from './layout/app-layout/client-layout/client-layout.component';
 import { NewQuoteComponent } from './views/client/new-quote/new-quote.component';
+import { QuoteListComponent } from './views/client/quote-list/quote-list.component';
+import { QuoteComponent } from './views/client/quote-list/quote/quote.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +49,8 @@ import { NewQuoteComponent } from './views/client/new-quote/new-quote.component'
     AdminLayoutComponent,
     ClientLayoutComponent,
     NewQuoteComponent,
+    QuoteListComponent,
+    QuoteComponent,
   ],
   imports: [
     BrowserModule,

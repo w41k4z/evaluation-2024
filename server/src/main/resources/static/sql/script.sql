@@ -24,7 +24,7 @@ CREATE TABLE units (
 CREATE TABLE house_types (
 	id SERIAL PRIMARY KEY,
 	name VARCHAR(50) UNIQUE NOT NULL,
-	duration DOUBLE PRECISION NOT NULL, -- construction duration (day) (maybe a denormalized column)
+	duration BIGINT NOT NULL, -- construction duration (in days) (maybe a denormalized column)
 	total_price DOUBLE PRECISION NOT NULL -- denormalization
 );
 
@@ -55,7 +55,7 @@ CREATE TABLE work_details (
 	works_id BIGINT REFERENCES works(id),
 	designation VARCHAR(100) UNIQUE NOT NULL,
 	units_id BIGINT REFERENCES units(id),
-	price DOUBLE PRECISION NOT NULL -- denormalization (maybe)
+	price DOUBLE PRECISION NOT NULL
 );
 
 -- Ex: Maison villa -> mur soutenant 10m²
@@ -64,14 +64,13 @@ CREATE TABLE house_construction_details (
 	house_types_id BIGINT REFERENCES house_types(id) NOT NULL,
 	work_details_id BIGINT REFERENCES work_details(id) NOT NULL,
 	default_quantity DOUBLE PRECISION NOT NULL,
-	unit_price DOUBLE PRECISION NOT NULL,
 	CHECK(default_quantity >= 0)
 );
 
 -- Devis client
 CREATE TABLE quotes (
 	id SERIAL PRIMARY KEY,
-	"date" TIMESTAMP NOT NULL,
+	action_date TIMESTAMP NOT NULL,
 	users_id BIGINT REFERENCES users(id) NOT NULL,
 	house_types_id BIGINT REFERENCES house_types(id) NOT NULL,
 	finition_types_id BIGINT REFERENCES finition_types(id) NOT NULL,
@@ -87,13 +86,14 @@ CREATE TABLE quote_details (
 	quotes_id BIGINT REFERENCES quotes(id) NOT NULL,
 	work_details_id BIGINT REFERENCES work_details(id) NOT NULL, -- denormalizing the work_details_id instead of using the house_construction_details_id
 	quantity DOUBLE PRECISION NOT NULL, -- quantity denormalization
-	unit_price DOUBLE PRECISION NOT NULL,
-	CHECK(unit_price > 0)
+	unit_price DOUBLE PRECISION NOT NULL, -- denormalization
+	CHECK(unit_price > 0),
+	CONSTRAINT uq_quote_details UNIQUE(quotes_id, work_details_id)
 );
 
 CREATE TABLE payment (
 	id SERIAL PRIMARY KEY,
-	"date" TIMESTAMP NOT NULL,
+	action_date TIMESTAMP NOT NULL,
 	quotes_id BIGINT REFERENCES quotes(id) NOT NULL,
 	amount DOUBLE PRECISION NOT NULL,
 	CHECK(amount > 0)

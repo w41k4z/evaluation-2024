@@ -8,6 +8,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-quote',
@@ -28,7 +29,7 @@ export class NewQuoteComponent {
 
   constructor(
     private newQuoteService: NewQuoteService,
-    private fb: FormBuilder
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -37,11 +38,6 @@ export class NewQuoteComponent {
       .subscribe((response) => {
         this.houseTypes = response.houseTypes;
         this.finitionTypes = response.finitionTypes;
-        const finitionTypesId = this.finitionTypes.map((_) => _.id);
-        this.newQuoteForm = this.fb.group({
-          finitionTypeId: [finitionTypesId[0], Validators.required],
-          constructionStartDate: ['', Validators.required],
-        });
       });
   }
 
@@ -65,14 +61,18 @@ export class NewQuoteComponent {
       this.selectedHouseType,
       this.newQuoteForm.get('constructionStartDate')?.value
     );
-    // this.newQuoteService.newQuote(
-    //   finitionType,
-    //   this.selectedHouseType,
-    //   this.newQuoteForm.get('constructionStartDate')?.value
-    // );
-    // reset
-    this.selectedHouseType = null;
-    this.newQuoteForm.reset();
-    this.submitted = false;
+    this.newQuoteService
+      .newQuote(
+        finitionType,
+        this.selectedHouseType,
+        this.newQuoteForm.get('constructionStartDate')?.value
+      )
+      .subscribe(() => {
+        // reset
+        this.selectedHouseType = null;
+        this.newQuoteForm.reset();
+        this.submitted = false;
+        this.router.navigate(['/app/client/quote-list']);
+      });
   }
 }
