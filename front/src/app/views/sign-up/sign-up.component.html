@@ -12,43 +12,20 @@
         <form [formGroup]="checkoutForm" (ngSubmit)="signUp()">
           <!-- Email input -->
           <div class="form-outline mb-4">
-            <label class="form-label" for="email"><b>Email address</b></label>
+            <label class="form-label" for="contact"><b>Contact</b></label>
             <input
-              type="email"
-              id="email"
+              type="text"
+              id="contact"
               class="form-control form-control-lg"
-              [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
-              placeholder="Enter a valid email address"
-              formControlName="email"
+              [ngClass]="{ 'is-invalid': submitted && f['contact'].errors }"
+              placeholder="Entrer votre contact"
+              formControlName="contact"
             />
             <!-- User input error validation -->
-            @if (submitted && f['email'].errors) {
+            @if (submitted && f['contact'].errors) {
             <div class="invalid-feedback">
-              @if (f['email'].errors['email']) {
-              <p class="m-0">Provide a valid email address</p>
-              } @if (f['email'].errors['required']) {
-              <p class="m-0">Email is required</p>
-              }
-            </div>
-            }
-          </div>
-
-          <!-- Password input -->
-          <div class="form-outline mb-3">
-            <label class="form-label" for="password"><b>Password</b></label>
-            <input
-              type="password"
-              id="password"
-              class="form-control form-control-lg"
-              [ngClass]="{ 'is-invalid': submitted && f['password'].errors }"
-              placeholder="Enter password"
-              formControlName="password"
-            />
-            <!-- User input error validation -->
-            @if (submitted && f['password'].errors) {
-            <div class="invalid-feedback">
-              @if (f['password'].errors['required']) {
-              <p class="m-0">Password is required</p>
+              @if (f['contact'].errors['required']) {
+              <p class="m-0">Le contact est requis</p>
               }
             </div>
             }
@@ -76,11 +53,11 @@
                 role="status"
               ></span>
               <ng-template #text>
-                <p class="m-0">Register</p>
+                <p class="m-0">Connection</p>
               </ng-template>
             </button>
         </div>
-        <p class="mt-2">Already have an account ? <span class="text-danger" style="cursor: pointer;" routerLink="/page/sign-in">Log in</span></p>
+        <!-- <p class="mt-2">Already have an account ? <span class="text-danger" style="cursor: pointer;" routerLink="/page/sign-in">Log in</span></p> -->
         </form>
       </div>
     </div>

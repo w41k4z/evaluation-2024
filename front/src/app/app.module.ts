@@ -7,7 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FullPageLayoutComponent } from './layout/full-page-layout/full-page-layout.component';
 import { AppLayoutComponent } from './layout/app-layout/app-layout.component';
-import { SideMenuComponent } from './layout/app-layout/side-menu/side-menu.component';
+import { SideMenuComponent } from './layout/app-layout/admin-layout/side-menu/side-menu.component';
 import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { PageNotFoundComponent } from './views/page-not-found/page-not-found.component';
 import { RouterModule } from '@angular/router';
@@ -21,6 +21,10 @@ import { PaginationComponent } from './components/pagination/pagination.componen
 import { TokenInterceptor } from './interceptor/TokenInterceptor';
 import { FiltersComponent } from './views/test-table/filters/filters.component';
 import { SignUpComponent } from './views/sign-up/sign-up.component';
+import { ClientSideMenuComponent } from './layout/app-layout/client-layout/client-side-menu/client-side-menu.component';
+import { HomeComponent } from './views/home/home.component';
+import { AdminLayoutComponent } from './layout/app-layout/admin-layout/admin-layout.component';
+import { ClientLayoutComponent } from './layout/app-layout/client-layout/client-layout.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +41,10 @@ import { SignUpComponent } from './views/sign-up/sign-up.component';
     PaginationComponent,
     FiltersComponent,
     SignUpComponent,
+    ClientSideMenuComponent,
+    HomeComponent,
+    AdminLayoutComponent,
+    ClientLayoutComponent,
   ],
   imports: [
     BrowserModule,

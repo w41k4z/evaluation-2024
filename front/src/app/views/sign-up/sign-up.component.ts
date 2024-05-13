@@ -11,8 +11,7 @@ import { SignUpService } from '../../service/auth/sign-up.service';
 })
 export class SignUpComponent {
   checkoutForm: FormGroup = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', Validators.required),
+    contact: new FormControl('', [Validators.required]),
   });
   loading$ = this.signUpService.loading$;
   error$ = this.signUpService.error$;
@@ -34,10 +33,10 @@ export class SignUpComponent {
       return;
     }
     this.signUpService
-      .register(this.checkoutForm.value.email, this.checkoutForm.value.password)
+      .register(this.checkoutForm.value.contact)
       .subscribe((response) => {
         this.authService.authenticate(response.token);
-        this.route.navigate(['/']);
+        this.route.navigate(['/app/client/home']);
         this.reset();
       });
   }

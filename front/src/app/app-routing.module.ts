@@ -8,6 +8,11 @@ import { PageNotFoundComponent } from './views/page-not-found/page-not-found.com
 import { SignInComponent } from './views/sign-in/sign-in.component';
 import { authGuard } from './guards/auth.guard';
 import { SignUpComponent } from './views/sign-up/sign-up.component';
+import { HomeComponent } from './views/home/home.component';
+import { adminGuard } from './guards/admin.guard';
+import { AdminLayoutComponent } from './layout/app-layout/admin-layout/admin-layout.component';
+import { ClientLayoutComponent } from './layout/app-layout/client-layout/client-layout.component';
+import { clientGuard } from './guards/client.guard';
 
 const routes: Routes = [
   {
@@ -16,12 +21,30 @@ const routes: Routes = [
     canActivate: [authGuard],
     children: [
       {
-        path: 'dashboard',
-        component: DashboardComponent,
+        path: 'admin',
+        component: AdminLayoutComponent,
+        canActivate: [adminGuard],
+        children: [
+          {
+            path: 'dashboard',
+            component: DashboardComponent,
+          },
+          {
+            path: 'test',
+            component: TestTableComponent,
+          },
+        ],
       },
       {
-        path: 'test',
-        component: TestTableComponent,
+        path: 'client',
+        component: ClientLayoutComponent,
+        canActivate: [clientGuard],
+        children: [
+          {
+            path: 'home',
+            component: HomeComponent,
+          },
+        ],
       },
     ],
   },
@@ -30,16 +53,16 @@ const routes: Routes = [
     component: FullPageLayoutComponent,
     children: [
       {
-        path: 'sign-in',
+        path: 'admin/sign-in',
         component: SignInComponent,
       },
       {
-        path: 'sign-up',
+        path: 'log-in',
         component: SignUpComponent,
       },
     ],
   },
-  { path: '', redirectTo: '/app/dashboard', pathMatch: 'full' },
+  { path: '', redirectTo: '/app/admin/dashboard', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent },
 ];
 

@@ -14,15 +14,11 @@ export class SignUpService {
 
   constructor(public http: HttpClient) {}
 
-  register(
-    email: string | undefined | null,
-    password: string | undefined | null
-  ): Observable<any> {
+  register(contact: string | undefined | null): Observable<any> {
     this.loadingSubject.next(true);
     return this.http
       .post(`${env.api}/auth/sign-up`, {
-        username: email,
-        password: password,
+        username: contact,
       })
       .pipe(
         tap(() => this.loadingSubject.next(false)),

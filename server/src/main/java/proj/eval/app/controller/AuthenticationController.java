@@ -2,6 +2,7 @@ package proj.eval.app.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.validation.Valid;
+import java.sql.SQLException;
 import java.util.HashMap;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -60,15 +61,21 @@ public class AuthenticationController {
   private ResponseEntity<?> signUp(
     @RequestBody @Valid SignUpRequest signUpRequest
   ) throws Exception {
+    String tempClientPassword = "no_password";
     Users user = new Users();
     user.setUsername(signUpRequest.getUsername());
-    user.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
+    user.setPassword(passwordEncoder.encode(tempClientPassword));
     user.setGroup(new Groups().findByGroupName(null, Roles.CLIENT));
-    user.create();
+
+    try {
+      user.create();
+    } catch (SQLException e) {
+      // Nothing to do if the user has already an account
+    }
 
     AuthRequest authRequest = new AuthRequest();
     authRequest.setUsername(user.getUsername());
-    authRequest.setPassword(signUpRequest.getPassword());
+    authRequest.setPassword(tempClientPassword);
     return this.signIn(authRequest);
   }
 }
