@@ -24,7 +24,16 @@ CREATE TABLE units (
 CREATE TABLE house_types (
 	id SERIAL PRIMARY KEY,
 	name VARCHAR(50) UNIQUE NOT NULL,
-	duration DOUBLE PRECISION NOT NULL -- construction duration (day) (maybe a denormalized column)
+	duration DOUBLE PRECISION NOT NULL, -- construction duration (day) (maybe a denormalized column)
+	total_price DOUBLE PRECISION NOT NULL -- denormalization
+);
+
+-- Ex: Villa: 3 douches, 4 chambres
+CREATE TABLE house_type_details (
+	id SERIAL PRIMARY KEY,
+	house_types_id BIGINT REFERENCES house_types(id) NOT NULL,
+	quantity INTEGER NOT NULL,
+	name VARCHAR(50) NOT NULL
 );
 
 -- Ex: Standard, Gold, VIP... 
@@ -44,7 +53,7 @@ CREATE TABLE works (
 CREATE TABLE work_details (
 	id SERIAL PRIMARY KEY,
 	works_id BIGINT REFERENCES works(id),
-	designation VARCHAR(50) UNIQUE NOT NULL,
+	designation VARCHAR(100) UNIQUE NOT NULL,
 	units_id BIGINT REFERENCES units(id),
 	price DOUBLE PRECISION NOT NULL -- denormalization (maybe)
 );

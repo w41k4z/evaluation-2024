@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DashboardService } from '../../service/dashboard/dashboard.service';
+import { DashboardService } from '../../../service/dashboard/dashboard.service';
 import { Router } from '@angular/router';
 
 @Component({

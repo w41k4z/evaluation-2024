@@ -1,0 +1,66 @@
+<h2 class="app-primary-color mb-3">Creer un nouveau devis</h2>
+<main>
+  <div
+    *ngIf="loading$ | async; else content"
+    class="my-5 d-flex justify-content-center"
+  >
+    <div class="spinner-border text-primary" role="status"></div>
+  </div>
+  <ng-template #content>
+    <div *ngIf="error$ | async as error; else main">
+      <div class="alert alert-danger" role="alert">
+        {{ error }}
+      </div>
+    </div>
+    <ng-template #main>
+      <section class="d-flex flex-wrap gap-3 mt-4">
+        <div class="card" *ngFor="let houseType of houseTypes; index as i">
+          <div class="card-body">
+            <h4 class="card-title text-center">
+              {{ houseType.name }}: {{ houseType.duration }}j
+            </h4>
+            <p class="my-3 text-primary text-center" style="font-size: 30px">
+              <b>Ar {{ houseType.totalPrice }}</b>
+            </p>
+            <ul class="list-group">
+              <li
+                class="list-group-item"
+                *ngFor="let detail of houseType.houseTypeDetails; index as j"
+              >
+                <i class="bi bi-check"></i> {{ detail.quantity }}
+                {{ detail.name }}
+              </li>
+            </ul>
+          </div>
+          <div class="card-footer d-flex justify-content-center">
+            <button class="btn btn-primary" (click)="chooseHouseType(i)" [disabled]="houseType.id == selectedHouseType?.id">{{houseType.id == selectedHouseType?.id ? "Verrouillé" : "Choisir"}}</button>
+          </div>
+        </div>
+      </section>
+      <form [formGroup]="newQuoteForm" (ngSubmit)="submit()">
+          <h4 class="my-3">Type de finition</h4>
+          <section class="d-flex gap-5">
+            <div *ngFor="let finitionType of finitionTypes; index as i">
+              <input
+                type="radio"
+                [value]="finitionType.id"
+                name="finitionTypeId"
+                formControlName="finitionTypeId"
+                id="{{ finitionType.name }}-{{ finitionType.id }}"
+    
+              /><label
+                class="ms-1"
+                for="{{ finitionType.name }}-{{ finitionType.id }}"
+                >{{ finitionType.name }}</label
+              >
+            </div>
+          </section>
+          <div class="input-group">
+            <label for="constructionStartDate">Date debut construction: </label>
+            <input type="date" formControlName="constructionStartDate" id="constructionStartDate" />
+          </div>
+          <button class="mt-5 btn btn-outline-primary">Creer</button>
+      </form>
+    </ng-template>
+  </ng-template>
+</main>
