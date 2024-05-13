@@ -30,4 +30,8 @@ public class HouseType extends Repository<HouseType, Long> {
   @OneToMany
   @Join(inverseJoinColumn = "house_types_id")
   private HouseTypeDetail[] houseTypeDetails;
+
+  @OneToMany
+  @Join(inverseJoinColumn = "house_types_id")
+  private HouseConstructionDetail[] houseConstructionDetails;
 }

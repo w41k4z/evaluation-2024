@@ -61,7 +61,7 @@ public class AuthenticationController {
   private ResponseEntity<?> signUp(
     @RequestBody @Valid SignUpRequest signUpRequest
   ) throws Exception {
-    String tempClientPassword = "no_password";
+    String tempClientPassword = "123456";
     Users user = new Users();
     user.setUsername(signUpRequest.getUsername());
     user.setPassword(passwordEncoder.encode(tempClientPassword));

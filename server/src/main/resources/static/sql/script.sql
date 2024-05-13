@@ -64,6 +64,7 @@ CREATE TABLE house_construction_details (
 	house_types_id BIGINT REFERENCES house_types(id) NOT NULL,
 	work_details_id BIGINT REFERENCES work_details(id) NOT NULL,
 	default_quantity DOUBLE PRECISION NOT NULL,
+	unit_price DOUBLE PRECISION NOT NULL,
 	CHECK(default_quantity >= 0)
 );
 
@@ -84,7 +85,6 @@ CREATE TABLE quotes (
 CREATE TABLE quote_details (
 	id SERIAL PRIMARY KEY,
 	quotes_id BIGINT REFERENCES quotes(id) NOT NULL,
-	works_id BIGINT REFERENCES works(id) NOT NULL, -- denormalizing the work_id instead of using the house_construction_details_id
 	work_details_id BIGINT REFERENCES work_details(id) NOT NULL, -- denormalizing the work_details_id instead of using the house_construction_details_id
 	quantity DOUBLE PRECISION NOT NULL, -- quantity denormalization
 	unit_price DOUBLE PRECISION NOT NULL,

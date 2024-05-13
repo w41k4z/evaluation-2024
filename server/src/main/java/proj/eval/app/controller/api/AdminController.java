@@ -22,9 +22,16 @@ public class AdminController {
   @GetMapping("/reinitialize-database")
   public ResponseEntity<?> reinitialize() throws SQLException {
     DatabaseConnection connection = ConnectionManager.getDatabaseConnection();
-    this.adminService.reinitializeDatabase(connection);
-    connection.commit();
-    connection.close();
-    return ResponseEntity.ok().build();
+    try {
+      this.adminService.reinitializeDatabase(connection);
+
+      connection.commit();
+      connection.close();
+      return ResponseEntity.ok().build();
+    } catch (SQLException e) {
+      connection.rollback();
+      connection.close();
+      throw e;
+    }
   }
 }
