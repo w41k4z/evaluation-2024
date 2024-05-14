@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import proj.eval.app.entity.FinitionType;
-import proj.eval.app.entity.HouseType;
 import proj.eval.app.entity.Quote;
+import proj.eval.app.entity.V_HouseType;
 import proj.eval.app.entity.V_QuoteDetail;
 import proj.eval.app.request.NewQuoteRequest;
 import proj.eval.app.security.UserDetailsImpl;
@@ -35,7 +35,7 @@ public class QuoteController {
     HashMap<String, Object> response = new HashMap<>();
     DatabaseConnection connection = ConnectionManager.getDatabaseConnection();
     try {
-      response.put("houseTypes", new HouseType().findAll(connection));
+      response.put("houseTypes", new V_HouseType().findAll(connection));
       response.put("finitionTypes", new FinitionType().findAll(connection));
     } catch (Exception e) {
       connection.close();

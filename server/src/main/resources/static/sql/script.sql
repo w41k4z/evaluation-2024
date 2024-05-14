@@ -25,7 +25,7 @@ CREATE TABLE house_types (
 	id SERIAL PRIMARY KEY,
 	name VARCHAR(50) UNIQUE NOT NULL,
 	duration BIGINT NOT NULL, -- construction duration (in days) (maybe a denormalized column)
-	total_price DOUBLE PRECISION NOT NULL -- denormalization
+	total_price DOUBLE PRECISION NOT NULL -- (denormalization if needed)
 );
 
 -- Ex: Villa: 3 douches, 4 chambres
